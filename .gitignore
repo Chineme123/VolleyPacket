@@ -213,3 +213,4 @@ logs
 data
 photo_id
 .python-version
+.DS_Store
