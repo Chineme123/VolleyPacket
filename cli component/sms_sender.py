@@ -102,30 +102,6 @@ def build_detail_message(row):
     return msg
 
 
-# --- SMS SENDER ---
-# def send_sms(phone, message):
-#     """Send one SMS via Brevo API. Returns (success, error_message)."""
-#     headers = {
-#         "accept": "application/json",
-#         "api-key": BREVO_API_KEY,
-#         "content-type": "application/json",
-#     }
-#     payload = {
-#         "sender": SENDER_NAME,
-#         "recipient": phone,
-#         "content": message,
-#         "type": "transactional",
-#     }
-
-#     try:
-#         response = requests.post(BREVO_API_URL, json=payload, headers=headers, timeout=30)
-#         if response.status_code == 201:
-#             return True, ""
-#         else:
-#             return False, f"HTTP {response.status_code}: {response.text}"
-#     except Exception as e:
-#         return False, str(e)
-    
 def send_sms(phone, message):
     headers = {
         "Authorization": f"Bearer {BULKSMS_API_TOKEN}",
@@ -241,10 +217,6 @@ def main():
         print("Error: BULKSMS_API_TOKEN not set in .env file.")
         sys.exit(1)
 
-    # if not BREVO_API_KEY:
-    #     print("Error: BREVO_API_KEY not set in .env file.")
-    #     sys.exit(1)
-
     if not os.path.isfile(args.input_file):
         print(f"Error: input file not found: {args.input_file}")
         sys.exit(1)
@@ -261,10 +233,6 @@ def main():
     data = pd.read_excel(args.input_file, engine='openpyxl')
     data = data.rename(columns={'Phone Number': 'PhoneNumber'})
     print(f"Loaded {len(data)} candidates.")
-
-    # TEMP — test mode: only process the first row with your own phone number
-    #data = data.head(1).copy()
-    #data['PhoneNumber'] = '08120668073'   # ← your phone here (local format is fine)
 
     # Sanity check — verify the expected columns exist
     required_cols = {"Name", "PhoneNumber", "ExamNo", "ExamDate", "ExamTime"}

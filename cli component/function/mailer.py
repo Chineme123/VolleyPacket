@@ -25,7 +25,6 @@ def build_email(row, pdf_path):
     msg = MIMEMultipart()
     msg["From"] = f"{SENDER_NAME} <{SENDER_EMAIL}>"
     msg["To"] = row["Email"]
-    #msg["To"] = "chineme2101@gmail.com"  # for testing
     msg["Subject"] = f"CBT Examination Invitation — {row['ExamDate'].strftime('%d %B %Y')}"
 
     # HTML body — personalised with Name and ExamDate

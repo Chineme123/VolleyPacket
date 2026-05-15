@@ -1,0 +1,14 @@
+.venv/
+venv/
+__pycache__/
+frontend/
+cli component/
+uploads/
+output/
+logs/
+data/
+.git/
+.claude/
+.env
+.env.local
+*.md

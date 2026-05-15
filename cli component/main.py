@@ -144,9 +144,7 @@ def save_invalid_rows(invalid_rows, timestamp):
     if invalid_rows.empty:
         return None
     path = os.path.join(LOG_FOLDER, f"invalid_emails_{timestamp}.xlsx")
-    columns = ["Name", "Email", "ExamNo", "Reason"]
-    available = [c for c in columns if c in invalid_rows.columns]
-    invalid_rows[available].to_excel(path, index=False)
+    invalid_rows.to_excel(path, index=False)
     return path
 
 # --- MAIN ---
